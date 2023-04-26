@@ -1,0 +1,235 @@
+<div *ngIf="loading" class="loading-bar">
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+</div>
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 mx-auto ">
+        <mat-card class="card-mobile" style="padding:0">
+            <mat-card-content>
+                <mat-vertical-stepper labelPosition="bottom" [linear]="false" #stepper>
+                    <mat-step [stepControl]="firstFormGroup">
+                        
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 mx-auto">
+                                <form [formGroup]="firstFormGroup">
+                                    <ng-template matStepLabel>Propietario</ng-template>
+                                    
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Propietario</mat-label>
+                                        <input type="text" matInput formControlName="propietario" placeholder="Propietario" [matAutocomplete]="autoPropietario" autocomplete="off" required>
+                                        <mat-autocomplete autoActiveFirstOption #autoPropietario="matAutocomplete">
+                                            <mat-option *ngFor="let item of propietarioOptions  | async" [value]="item">
+                                                {{item}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                    
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Telefono</mat-label>
+                                        <input type="tel" min="0" step="1" matInput formControlName="telefono" placeholder="telefono" [matAutocomplete]="autoTelefono" autocomplete="off" required>
+                                        <mat-autocomplete autoActiveFirstOption #autoTelefono="matAutocomplete">
+                                            <mat-option *ngFor="let item of telefonoOptions  | async" [value]="item">
+                                                {{item}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Encargado</mat-label>
+                                        <input type="text" matInput formControlName="encargado" placeholder="Encargado" autocomplete="off">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Telefono encargado</mat-label>
+                                        <input type="number" min="0" step="1" matInput formControlName="telefono_encargado" placeholder="Telefono del encargado" autocomplete="off">
+                                    </mat-form-field>
+            
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Fecha</mat-label>
+                                        <input matInput [matDatepicker]="picker" formControlName="fecha" required>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker touchUi  #picker></mat-datepicker>
+                                    </mat-form-field>
+                                    
+                                    <div class="text-right">
+                                        <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+                                            <button mat-button [routerLink]="['/ordenes']">
+                                                <mat-icon>clear</mat-icon>
+                                                Cerrar
+                                            </button>
+                                            <button mat-button color="primary" matStepperNext>
+                                                <mat-icon>keyboard_arrow_right</mat-icon>
+                                                Continuar
+                                            </button>
+                                        </div>
+                                        <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+                                            <button mat-button color="primary" matStepperNext>
+                                                Continuar
+                                                <mat-icon>keyboard_arrow_right</mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 mx-auto">
+                                <form [formGroup]="secondFormGroup">
+                                    <ng-template matStepLabel>
+                                        Vehiculo <br>
+                                        <small>vehiculo,Modelo y placa</small>
+                                    </ng-template>
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Vehiculo</mat-label>
+                                        <input type="text" matInput formControlName="vehiculo" placeholder="vehiculo" autocomplete="off" 
+                                            [matAutocomplete]="autoVehiculos" required>
+                                        <mat-autocomplete autoActiveFirstOption  (optionSelected)='onSelectedVehiculo($event.option.value)' #autoVehiculos="matAutocomplete">
+                                            <mat-option *ngFor="let itemVehiculo of filteredOptions  | async" [value]="itemVehiculo">
+                                                {{itemVehiculo}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Modelo</mat-label>
+                                        <input type="text" matInput formControlName="modelo" placeholder="modelo" autocomplete="off"
+                                            [matAutocomplete]="autoModelos" required>
+                                        <mat-autocomplete autoActiveFirstOption #autoModelos="matAutocomplete">
+                                            <mat-option *ngFor="let modelo of modeloOptions | async" [value]="modelo">
+                                                {{modelo}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Placa</mat-label>
+                                        <input #placa type="text" class="text-uppercase" matInput formControlName="placa" placeholder="placa" [matAutocomplete]="autoPlaca"  autocomplete="off" required>
+                                        <mat-autocomplete autoActiveFirstOption #autoPlaca="matAutocomplete">
+                                            <mat-option *ngFor="let item of placaOptions  | async" [value]="item">
+                                                {{item}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                    
+
+                                    <div class="text-right">
+                                        <button mat-flat-button matStepperPrevious>
+                                            <mat-icon>keyboard_arrow_left</mat-icon>
+                                            Atras
+                                        </button>
+                                        <button mat-button color="primary" matStepperNext>
+                                            Continuar
+                                            <mat-icon>keyboard_arrow_right</mat-icon>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </mat-step>
+                    <mat-step [stepControl]="thirtyFormGroup">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 mx-auto">
+                                <form [formGroup]="thirtyFormGroup">
+                                    <ng-template matStepLabel>
+                                        Vehiculo <br>
+                                        <small>Color, año y tanque</small>
+                                    </ng-template>
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>color</mat-label>
+                                        <input type="text" matInput formControlName="color" placeholder="color" autocomplete="off" [matAutocomplete]="autoColors" required>
+                                        <mat-autocomplete autoActiveFirstOption #autoColors="matAutocomplete">
+                                            <mat-option *ngFor="let color of colorOptions | async" [value]="color">
+                                                {{color}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Año</mat-label>
+                                        <input type="number" min="0" step="1" matInput formControlName="ano" placeholder="Año" [matAutocomplete]="autoAno">
+                                        <mat-autocomplete autoActiveFirstOption #autoAno="matAutocomplete">
+                                            <mat-option *ngFor="let item of anoOptions | async" [value]="item">
+                                                {{item}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>                                    
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Tanque</mat-label>
+                                        <select matNativeControl name="tanque" formControlName="tanque">
+                                            <option>--</option>
+                                            <option [value]="1/4">
+                                                1/4
+                                            </option>
+                                            <option [value]="1/2">
+                                                1/2
+                                            </option>
+                                            <option [value]="3/4">
+                                                3/4
+                                            </option>
+                                            <option value="Full">
+                                                Full
+                                            </option>
+                                        </select>
+                                    </mat-form-field>
+
+                                    <div class="text-right">
+                                        <button mat-flat-button matStepperPrevious>
+                                            <mat-icon>keyboard_arrow_left</mat-icon>
+                                            Atras
+                                        </button>
+                                        <button mat-button color="primary" matStepperNext>
+                                            Continuar
+                                            <mat-icon>keyboard_arrow_right</mat-icon>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </mat-step>
+                    <mat-step [stepControl]="fourtyFormGroup">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 mx-auto">
+                                <form [formGroup]="fourtyFormGroup" (ngSubmit)="onSubmit()">
+                                    <ng-template matStepLabel>Problema y estado actual</ng-template>
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Problema del vehiculo</mat-label>
+                                        <textarea matInput formControlName="solicitud" placeholder="Problema del vehiculo" rows="3">
+                                        </textarea>
+                                    </mat-form-field>
+
+                                    <img src="{{model.foto}}" alt="foto" *ngIf="model.foto" class="foto-image-edit">
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Foto</mat-label>
+                                        <input matInput class="cursor-pointer" formControlName="foto" placeholder="Foto" autocomplete="off" (click)="inputFoto.click()" readonly>
+                                        <mat-icon matSuffix class="cursor-pointer" (click)="inputFoto.click()">attach_file</mat-icon>
+                                    </mat-form-field>
+                                    <input hidden type="file" accept="image/*" #inputFoto (change)="onFileChange($event)" />
+
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Objetos en el vehiculo</mat-label>
+                                        <mat-select matNativeControl readonly (click)="selectAccesorios()">
+                                        </mat-select>
+                                    </mat-form-field>
+                                    
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Otros</mat-label>
+                                        <textarea matInput formControlName="estado_vehiculo_otros" placeholder="Otros"></textarea>
+                                    </mat-form-field>
+
+                                    <div class="text-right">
+                                        <button mat-flat-button matStepperPrevious>
+                                            <mat-icon>keyboard_arrow_left</mat-icon>
+                                            Atras
+                                        </button>
+                                        <button mat-flat-button type="submit" color="primary" #submitBtn class="ml-3" [disabled]="submitted">
+                                            <mat-icon>add</mat-icon>
+                                            Registrar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </mat-step>
+                </mat-vertical-stepper>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -1,13 +1,28 @@
 // This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
   production: false,
+  store: {
+    userId: '>=Ch5N',
+    userToken: 'A26d>n',
+    userData: 'Ft36d-n',
+  },
   apiConfig: {
     headers: {
+      'Content-Type': 'application/json',
       Accept: 'application/json',
+      'Cache-Control': 'no-cache',
+      // 'Accept-Encoding':'gzip, deflate, br',
+      // 'Connection':'keep-alive'
     },
+    // headersFormData: {
+    //   'Content-Type': 'application/x-www-form-urlencoded',
+    //   'Accept': 'application/json',
+    //   // 'Cache-Control': 'no-cache',
+    // },
+    // path: 'http://192.168.0.12:8001/api'
     path: 'http://localhost:8000/api'
   }
 };
@@ -19,4 +34,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

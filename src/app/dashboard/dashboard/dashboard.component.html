@@ -1,0 +1,135 @@
+
+<div *ngIf="loading" class="loading-bar">
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+</div>
+
+<div *ngIf="!deviceService.isMobile()">
+    <div class="row row-mobile">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" *ngIf="userData.type == 1">
+            <mat-card [routerLink]="['/users']" class="text-center">
+                <img src="/assets/img/dash_user.png" alt="" width="200" >
+                <mat-divider></mat-divider>
+                <h4>Usuarios</h4>
+            </mat-card>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" *ngIf="userData.type == 1">
+            <mat-card class="text-center" [routerLink]="['/mecanicos']">
+                <img src="/assets/img/dash_mecanico.png" alt="" width="200">
+                <mat-divider></mat-divider>
+                <h4>Mecanicos</h4>
+            </mat-card>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <mat-card class="text-center" [routerLink]="['/ordenes']">
+                <img src="/assets/img/dash_orden_trabajo.png" alt="" width="200">
+                <mat-divider></mat-divider>
+                <h4>Ordenes</h4>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+
+
+<div *ngIf="deviceService.isMobile()">
+    <button mat-icon-button class="button-edit-menu" [routerLink]="['/users/profile']">
+        <mat-icon>settings</mat-icon>
+    </button>
+    <img src="/assets/img/baner-mobile.jpg" alt="banner" width="100%">
+    <mat-card>
+        <mat-card-content>
+            <table class="full-width">
+                <tbody>
+                    <tr *ngIf="userData.type == 1">
+                        <td class="text-center" >
+                            <mat-card [routerLink]="['/users']">
+                                <mat-icon color="primary">account_circle</mat-icon> <br>
+                                <span>Usuarios</span>
+                            </mat-card>
+                        </td>
+                        <td class="text-center">
+                            <mat-card [routerLink]="['/mecanicos']">
+                                <mat-icon color="primary">build</mat-icon> <br>
+                                <span>Mecanicos</span>
+                            </mat-card>
+                        </td>
+                        <td class="text-center">
+                            <mat-card [routerLink]="['/ordenes']">
+                                <mat-icon color="primary">directions_car</mat-icon> <br>
+                                <span>Vehiculos</span>
+                            </mat-card>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </mat-card-content>
+
+        <h4>
+            {{ userData.type == 1 && 'Nuevas ordenes de trabajo' || 'Mis nuevas ordenes de trabajo' }}
+        </h4>
+
+        <mat-card *ngFor="let element of ordenes" class="mt-4">
+            <mat-card-content>
+                <table class="full-width">
+                    <tbody>
+                        <tr>
+                            <td rowspan="4" width="100">
+                                <img src="{{element.foto}}" alt="foto" *ngIf="element.foto" width="100%">
+                                <img src="/assets/img/car.png" alt="foto" *ngIf="!element.foto" width="100%">
+                            </td>
+                            <td colspan="2">
+                                <small>Propietario</small> <br>
+                                <strong>
+                                    {{element.propietario}}
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <small> Vehiculo: </small> <br>
+                                <strong>
+                                    {{element.vehiculo}} {{element.modelo}}
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <small>Placa</small> <br>
+                                <strong>
+                                    {{element.placa}}
+                                </strong>
+                            </td>
+                            <td>
+                                <small>Estado</small>
+                                <mat-chip-list>
+                                    <mat-chip class="color-success" *ngIf="element.estado == 1">
+                                        <small>
+                                            Terminado
+                                        </small>
+                                    </mat-chip>
+                                    <mat-chip selected [color]="primary" *ngIf="element.estado == 0">
+                                        <small>
+                                            En espera
+                                        </small>
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-card-content>
+            <mat-card-actions>
+                <a href="#" mat-button [routerLink]="['/ordenes/show']" [queryParams]="{id:element.id}" matTooltip="Ver" aria-label="Ver" class="full-width text-center">
+                    Ver vehiculo
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </a>
+            </mat-card-actions>
+        </mat-card>
+
+        <div class="mt-2 text-center">
+            <button mat-button class="full-width" [routerLink]="['/ordenes']">
+                Ver mas
+            </button>
+        </div>
+    </mat-card>
+</div>

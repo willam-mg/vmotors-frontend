@@ -1,0 +1,522 @@
+<div *ngIf="loading" class="loading-bar">
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+</div>
+<button mat-icon-button *ngIf="userData.type == 1" class="button-edit-menu" [routerLink]="['/ordenes/edit']" [queryParams]="{id:model.id}">
+    <mat-icon>edit</mat-icon>
+</button>
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 mx-auto">
+        <mat-card class="card-mobile">
+            <img class="d-block d-sm-block d-md-none d-lg-none d-xl-none" mat-card-image src="{{model.foto}}" alt="foto" *ngIf="model.foto && showImage">
+            <div class="text-right d-block d-sm-block d-md-none d-lg-none d-xl-none">
+                <button mat-button (click)="showImage = !showImage" class="button-show-image">
+                    <span *ngIf="!showImage">Mostrar foto</span>
+                    <span *ngIf="showImage">Ocultar foto</span>
+                </button>
+            </div>
+            <mat-card-content>
+                
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <img class="d-none d-sm-none d-md-block d-lg-block d-xl-block" mat-card-image src="{{model.foto}}" alt="foto" *ngIf="model.foto && showImage">
+                        <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block text-right">
+                            <button mat-button (click)="showImage = !showImage" class="button-show-image">
+                                <span *ngIf="!showImage">Mostrar foto</span>
+                                <span *ngIf="showImage">Ocultar foto</span>
+                            </button>
+                        </div>
+
+                        <mat-chip-list class="text-right">
+                            <mat-chip class="color-success" *ngIf="model.estado == 1">
+                                <mat-icon>done</mat-icon>
+                                Terminado
+                            </mat-chip>
+                            <mat-chip selected [color]="primary" *ngIf="model.estado == 0">
+                                <mat-icon>visibility</mat-icon>
+                                En espera
+                            </mat-chip>
+                        </mat-chip-list>
+                        
+                        <table class="table table-sm table-light">
+                            <tbody>
+                                <tr>
+                                    <th class="text-left w-size-word-1">Vehiculo</th>
+                                    <td class="text-capitalize">
+                                        {{model.vehiculo}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Placa</th>
+                                    <td class="text-capitalize">
+                                        {{model.placa}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Modelo</th>
+                                    <td class="text-capitalize">
+                                        {{model.modelo}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Tanque</th>
+                                    <td class="text-capitalize">
+                                        {{model.tanque}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Color</th>
+                                    <td class="text-capitalize">
+                                        {{model.color}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Año</th>
+                                    <td class="text-capitalize">
+                                        {{model.ano}}
+                                    </td>
+                                </tr>
+                            <!-- </tbody>
+                        </table>
+                
+                        <table class="table table-sm table-light">
+                            <tbody> -->
+                                <tr>
+                                    <th class="text-left w-size-word-3">Propietario</th>
+                                    <td class="text-capitalize">
+                                        {{model.propietario}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Telf.</th>
+                                    <td class="text-capitalize">
+                                        {{model.telefono}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Encargado</th>
+                                    <td class="text-capitalize">
+                                        {{model.encargado}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Telefono encargado</th>
+                                    <td class="text-capitalize">
+                                        {{model.telefono_encargado}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Fecha de ingreso</th>
+                                    <td class="text-capitalize">
+                                        {{model.fecha}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Fecha de salida</th>
+                                    <td class="text-capitalize">
+                                        {{model.fecha_salida}}
+                                    </td>
+                                </tr>
+                            <!-- </tbody>
+                        </table>
+                
+                        <table class="table table-sm table-light">
+                            <tbody> -->
+                                <tr>
+                                    <th class="text-left w-size-word-2">Kilometraje actual</th>
+                                    <td class="text-capitalize">
+                                        {{model.km_actual}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Proximo cambio</th>
+                                    <td class="text-capitalize">
+                                        {{model.proximo_cambio}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Pago</th>
+                                    <td class="text-capitalize">
+                                        {{model.pago}} <br>
+                                        {{model.detalle_pago}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Solicitud de trabajo</th>
+                                    <td class="text-capitalize">
+                                        {{model.solicitud}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block text-right full-width">
+                            <button mat-button [matMenuTriggerFor]="menu">
+                                <mat-icon>print</mat-icon>
+                                Imprimir
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item *ngIf="userData.type == 1" color="primary" (click)="printOrden()">
+                                    Entrada
+                                </button>
+                                <button mat-menu-item *ngIf="userData.type == 1" color="accent" (click)="printOrdenSalida()">
+                                    Salida
+                                </button>
+                            </mat-menu>
+                        </div>
+                        
+                        <div class="pt-3" *ngIf="model.mecanico && userData.type == 1">
+                            <strong>Mecanico responsable</strong> <br>
+                            <mat-card class="mt-3 p-1" [routerLink]="['/mecanicos/show']" [queryParams]="{id:model.mecanico.id}">
+                                <table class="full-width">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center" style="width: 22%;">
+                                                <img mat-card-avatar src="{{model.mecanico.foto}}" alt="foto" *ngIf="model.mecanico.foto"
+                                                    class="foto-image-table-mobile">
+                                                <img src="/assets/img/no-image-user.svg" alt="foto" *ngIf="!model.mecanico.foto"
+                                                    class="foto-image-table-mobile">
+                                            </td>
+                                            <td>
+                                                <strong class="text-capitalize"> {{model.mecanico.nombre_completo}} </strong> <br>
+                                                <small> Ci: </small>
+                                                <small> {{model.mecanico.ci}} </small> <br>
+                                                <small> Telefono: </small>
+                                                <small> {{model.mecanico.telefono}} </small>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </mat-card>
+                        </div>
+
+                        <div class="mt-3">
+                            <h4>Estado del vehiculo</h4>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" *ngFor="let group of groupAccesorios">
+                                    <div *ngFor="let accesorio of group">
+                                        <img [src]="accesorio.checked?'/assets/img/check_box-black.svg':'/assets/img/check_box_outline.svg'"
+                                            alt="check">
+                                        <span style="top:-5px; position:relative" class="text-capitalize">
+                                            {{accesorio.nombre}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <p class="text-capitalize">
+                                        {{model.estado_vehiculo_otros}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <td colspan="2">
+                                        <h4>Detalle de respuestos e insumos</h4>
+                                    </td>
+                                    <td class="text-right w-small-button">
+                                        <button class="mt-2" mat-mini-fab (click)="addRepuesto()">
+                                            <mat-icon>add</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let item of model.repuestos">
+                                    <td class="align-middle">
+                                        {{item.repuesto}}
+                                    </td>
+                                    <td class="align-middle text-right">
+                                        <span *ngIf="userData.type == 1 && item.precio">
+                                            {{item.precio | number}} Bs.
+                                        </span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button mat-icon-button (click)="addRepuesto(item, true)">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="model.repuestos.length == 0">
+                                    <td colspan="3" class="text-center">
+                                        No hay repuestos
+                                    </td>
+                                </tr>
+                                <tr *ngIf="userData.type == 1">
+                                    <td>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>Total</strong>
+                                        {{model.totalRepuesto | number}} Bs.
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td scope="col" class="text-left" colspan="2">
+                                        <h4>Detalle de trabajo</h4>
+                                    </td>
+                                    <td scope="col" class="text-right">
+                                        <button class="mt-2" mat-mini-fab (click)="addManoObra()">
+                                            <mat-icon>add</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let item of model.manosobra">
+                                    <td class="align-middle">
+                                        {{item.descripcion}}
+                                    </td>
+                                    <td class="align-middle text-right">
+                                        <span *ngIf="userData.type == 1 && item.precio">
+                                            {{item.precio | number}} Bs.
+                                        </span>
+                                    </td>
+                                    <td class="align-middle text-right">
+                                        <button mat-icon-button (click)="addManoObra(item, true)">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="model.manosobra.length == 0">
+                                    <td colspan="3" class="text-center">
+                                        No hay mano de obra
+                                    </td>
+                                </tr>
+                                <tr *ngIf="userData.type == 1">
+                                    <td></td>
+                                    <td class="text-right">
+                                        <strong>Total</strong>
+                                        {{model.totalManoObra | number}} Bs.
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr *ngIf="userData.type == 1">
+                                    <td colspan="2" class="text-right">
+                                        <h2>
+                                            <span class="font-weight-light">
+                                                Total orden
+                                            </span>
+                                            {{model.totalRepuesto + model.totalManoObra | number }} Bs.
+                                        </h2>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <!-- ordenes similares -->
+                        <h4>
+                            Trabajos anteriores
+                            <button mat-button (click)="getSimilares(model.id)">
+                                <mat-icon>access_time</mat-icon>
+                                Mostrar
+                            </button>
+                            
+                        </h4> 
+                        <table class="table">
+                            <tbody>
+                                <tr *ngFor="let similar of similares">
+                                    <td>
+                                        <b>Vehiculo: </b> {{similar.vehiculo}} <br>
+                                        <b>Placa: </b> {{similar.placa}} <br>
+                                        <b>Propietario: </b> {{similar.propietario}} <br>
+                                        <b>Placa: </b> {{similar.placa}} <br>
+                                        <div *ngIf="model.estado == 1">
+                                            <b>Estado: </b> Terminado <br>
+                                        </div>
+                                        <div *ngIf="model.estado == 0">
+                                            <b>Estado: </b> En espera <br>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <b>Trabajo: </b> <br>
+                                        {{similar.solicitud}}
+                                    </td>
+                                    <td>
+                                        <button mat-icon-button [routerLink]="['/ordenes/show']" [queryParams]="{id:similar.id}" matTooltip="Ver"
+                                            aria-label="Ver" color="primary">
+                                            <mat-icon>visibility</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                
+
+
+                <!-- <div class="row"> -->
+                    <!-- <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <img class="d-none d-sm-none d-md-block d-lg-block d-xl-block" mat-card-image src="{{model.foto}}" alt="foto" *ngIf="model.foto">
+                    </div> -->
+
+                    <!-- <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <p>
+                                    <b>Vehiculo</b>
+                                    <span class="text-capitalize">
+                                        {{model.vehiculo}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <b>Placa</b>
+                                    <span class="text-capitalize">
+                                        {{model.placa}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <b>Modelo</b>
+                                    <span class="text-capitalize">
+                                        {{model.modelo}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <b>Tanque</b>
+                                    <span class="text-capitalize">
+                                        {{model.tanque}}
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <p>
+                                    <b>Color</b>
+                                    <span class="text-capitalize">
+                                        {{model.color}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <b>Año</b>
+                                    <span class="text-capitalize">
+                                        {{model.ano}}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                
+                <!-- <div class="row">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-3">
+                        <strong>Propietario</strong> 
+                        <span class="text-capitalize">
+                            {{model.propietario}}
+                        </span>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-3">
+                        <strong>Telf.</strong> 
+                        {{model.telefono}}
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-3">
+                        <strong>Fecha de ingreso</strong> 
+                        <span>
+                            {{model.fecha}}
+                        </span>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-3">
+                        <strong>Fecha de salida</strong> 
+                        <span>
+                            {{model.fecha_salida}}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-3">
+                        <strong>Kilometraje actual</strong> 
+                        <span>
+                            {{model.km_actual}}
+                        </span>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-3">
+                        <strong>Proximo cambio</strong> 
+                        <span>
+                            {{model.proximo_cambio}}
+                        </span>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-3">
+                        <strong>Pago</strong> 
+                        <span>
+                            {{model.pago}} <br>
+                            {{model.detalle_pago}}
+                        </span>
+                    </div>
+                </div>
+                
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-3">
+                        <h4>Solicitud de trabajo</h4>
+                        <p>
+                            {{model.solicitud}}
+                        </p>
+                    </div>
+                </div> -->
+
+                
+                
+
+            </mat-card-content>
+            <mat-card-actions align="center">
+                <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+                    <button mat-flat-button class="full-width mt-4"  *ngIf="userData.type == 1" color="primary" (click)="printOrden()">
+                        <mat-icon>print</mat-icon>
+                        Imprimir entrada
+                    </button>
+                    <button mat-flat-button class="full-width mt-4 mb-5" *ngIf="userData.type == 1" color="accent" (click)="printOrdenSalida()">
+                        <mat-icon>print</mat-icon>
+                        Imprimir salida
+                    </button>
+                </div>
+
+
+                
+                <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+                    <table class="full-width">
+                        <tbody>
+                            <tr>
+                                <td class="text-center">
+                                    <button mat-button [routerLink]="[ '/ordenes']">
+                                        <mat-icon>clear</mat-icon>
+                                        Cerrar
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    <button mat-flat-button *ngIf="userData.type == 1" (click)="elminar()" color="warn">
+                                        <mat-icon>delete</mat-icon>
+                                        Eliminar
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    <button mat-flat-button *ngIf="userData.type == 1" [routerLink]="[ '/ordenes/edit']" color="accent" [queryParams]="{id:model.id}">
+                                        <mat-icon>edit</mat-icon>
+                                        Modificar
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+
+
+
+<!-- reportes -->
+<app-reporte-entrada #reporte id="reporte" class="visible-print" [groupAccesorios]="groupAccesorios" [model]="model"></app-reporte-entrada>
+
+<app-reporte-salida #reporte2 id="reporte2" class="visible-print" [model]="model"></app-reporte-salida>
