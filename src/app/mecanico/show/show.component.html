@@ -1,0 +1,94 @@
+<button mat-icon-button class="button-edit-menu" [routerLink]="['/mecanicos/edit']"
+    [queryParams]="{id:model.id}">
+    <mat-icon>edit</mat-icon>
+</button>
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mx-auto">
+        <mat-card class="card-mobile">
+            <mat-card-content>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
+                        <img src="{{model.foto}}" alt="foto" *ngIf="model.foto" class="foto-image">
+                        <img src="/assets/img/no-image-user.svg" alt="foto" *ngIf="!model.foto" class="foto-image">
+                        <mat-card-title class="text-capitalize text-center">
+                            {{model.nombre_completo}}
+                        </mat-card-title>
+                        <mat-card-subtitle class="text-capitalize text-center">
+                            {{model.especialidad}}
+                        </mat-card-subtitle>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <mat-list>
+                            <mat-list-item>
+                                <mat-icon mat-list-icon>phone</mat-icon>
+                                <a href="tel:{{model.telefono}}" matLine>
+                                    {{model.telefono}}
+                                </a>
+                                <p matLine>
+                                    <span>Telefono</span>
+                                </p>
+                            </mat-list-item>
+                            <mat-list-item>
+                                <mat-icon mat-list-icon>pin_drop</mat-icon>
+                                
+                                <a href="https://www.google.com/maps/search/?api=1&query={{model.direccion}}" matLine>
+                                    {{model.direccion}}
+                                </a>
+
+                                <p matLine>
+                                    <span>Direccion</span>
+                                </p>
+                            </mat-list-item>
+                            <mat-list-item>
+                                <mat-icon mat-list-icon>person_pin</mat-icon>
+                                <h1 matLine> {{model.ci}}</h1>
+                                <p matLine>
+                                    <span>CI</span>
+                                </p>
+                            </mat-list-item>
+                            <mat-list-item>
+                                <mat-icon mat-list-icon>mail</mat-icon>
+                                <a href="mailto:{{model.email}}" matLine>
+                                    {{model.email}}
+                                </a>
+                                <p matLine>
+                                    <span>Email</span>
+                                </p>
+                            </mat-list-item>
+                            <mat-list-item>
+                                <mat-icon mat-list-icon>event</mat-icon>
+                                <h1 matLine> {{model.fecha_ingreso}}</h1>
+                                <p matLine>
+                                    <span>Fecha de ingreso</span>
+                                </p>
+                            </mat-list-item>
+                            <mat-list-item>
+                                <mat-icon mat-list-icon>event</mat-icon>
+                                <h1 matLine> {{model.fecha_salida}}</h1>
+                                <p matLine>
+                                    <span>Fecha de salida</span>
+                                </p>
+                            </mat-list-item>
+                        </mat-list>
+                        <button mat-button (click)="elminar()" color="warn">
+                            <mat-icon>delete</mat-icon>
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions class="text-right">
+                <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+                    <button mat-button [routerLink]="[ '/mecanicos']">
+                        <mat-icon>clear</mat-icon>
+                        Cerrar
+                    </button>
+                    <button mat-flat-button [routerLink]="[ '/mecanicos/edit']" [queryParams]="{id:model.id}">
+                        <mat-icon>edit</mat-icon>
+                        Modificar
+                    </button>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

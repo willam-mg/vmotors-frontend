@@ -1,0 +1,14 @@
+.color-warn{
+  color: white;
+  background-color: #f44336;
+}
+.color-success{
+  color: white;
+  background-color: #05af70;
+}
+
+.user-image-table {
+  width: 100px;
+  height: 60px;
+  box-shadow: #000000 0px 0px 1px 0px;
+}

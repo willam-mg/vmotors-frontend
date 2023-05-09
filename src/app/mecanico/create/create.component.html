@@ -1,0 +1,122 @@
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-7 col-md-6 col-lg-6 mx-auto ">
+        <mat-card class="card-mobile">
+            <form [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate="">
+                <mat-card-content>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Nombre completo</mat-label>
+                        <input type="text" matInput formControlName="nombre_completo" placeholder="Nombre completo"
+                            autocomplete="off" required>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Telefono</mat-label>
+                        <input type="number" min="0" step="1" matInput formControlName="telefono" placeholder="telefono"
+                            autocomplete="off" required>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Dirección</mat-label>
+                        <textarea matInput formControlName="direccion" placeholder="Soy mecanico"></textarea>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Ci</mat-label>
+                        <input type="number" min="0" step="1" matInput formControlName="ci" placeholder="ci"
+                            autocomplete="off" required>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Especialidad</mat-label>
+                        <input matInput formControlName="especialidad" placeholder="especialidad" autocomplete="off"
+                            [matAutocomplete]="autoEspecialidades">
+                        <mat-autocomplete #autoEspecialidades="matAutocomplete">
+                            <mat-option [value]="'Automotriz general'">
+                                Automotriz general
+                            </mat-option>
+                            <mat-option [value]="'Electricista'">
+                                Electricista
+                            </mat-option>
+                            <mat-option [value]="'Especialista de motores'">
+                                Especialista de motores
+                            </mat-option>
+                            <mat-option [value]="'Tecnico de gas'">
+                                Tecnico de gas
+                            </mat-option>
+                            <mat-option [value]="'Chapero'">
+                                Chapero
+                            </mat-option>
+                            <mat-option [value]="'Ayudante'">
+                                Ayudante
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Fecha de ingreso</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="fecha_ingreso">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker touchUi  #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Fecha de salida</mat-label>
+                                <input matInput [matDatepicker]="picker1" formControlName="fecha_salida">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker touchUi #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Email</mat-label>
+                        <input type="email" matInput formControlName="email" placeholder="email" autocomplete="off"
+                            required>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Password</mat-label>
+                        <input type="password" matInput formControlName="password" placeholder="password"
+                            autocomplete="off" required>
+                        <mat-hint>Minimo 8 caracteres</mat-hint>
+                    </mat-form-field>
+
+
+
+
+
+
+                    <div class="form-inline mt-1">
+                        <mat-label>Foto</mat-label>
+                        <p>
+                            <img src="{{model.foto}}" alt="foto" *ngIf="model.foto" class="foto-image-edit">
+                        </p>
+                        &nbsp;
+                        <button type="button" mat-raised-button (click)="inputFoto.click()" title="Seleccionar imagen">
+                            <mat-icon>attach_file</mat-icon>
+                            Seleccionar
+                        </button>
+                        <input hidden type="file" accept="image/*" #inputFoto (change)="onFileChange($event)" />
+                    </div>
+
+                </mat-card-content>
+                <mat-card-actions>
+                    <div class="text-right">
+                        <button mat-button [routerLink]="['/mecanicos']">
+                            <mat-icon>clear</mat-icon>
+                            Cerrar
+                        </button>
+                        <button mat-flat-button type="submit" color="primary" #submitBtn class="ml-3"
+                            [disabled]="submitted">
+                            <mat-icon>add</mat-icon>
+                            Registrar
+                        </button>
+                    </div>
+                </mat-card-actions>
+            </form>
+        </mat-card>
+    </div>
+</div>

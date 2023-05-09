@@ -1,0 +1,164 @@
+
+<div class="layout-container">
+  <mat-toolbar  class="fix-nav d-none d-sm-none d-md-block d-lg-block d-xl-block" *ngIf="!deviceService.isMobile()" color="primary">
+    <mat-toolbar-row>
+      <!-- title en desktop view -->
+      <div class="nav-spacer text-left">
+        <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+          <img src="/assets/img/log-dash-white.png" alt="" width="200" height="auto">
+        </div>
+      </div>
+
+      <div class="nav-icon-right">
+        <button mat-icon-button [matMenuTriggerFor]="profile">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #profile [overlapTrigger]="false">
+          <button mat-menu-item [routerLink]="['/users/profile']">
+            <mat-icon>person</mat-icon>
+            <span>Mi perfil</span>
+          </button>
+          <button mat-menu-item [routerLink]="['/users/change-password']">
+            <mat-icon>lock</mat-icon>
+            <span>Cambiar password</span>
+          </button>
+          <button mat-menu-item (click)="onLoggedout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Cerrar sessión</span>
+          </button>
+        </mat-menu>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-sidenav-container  [hasBackdrop]="deviceService.isMobile() ? true : false">
+    <mat-sidenav #drawer [mode]="deviceService.isMobile() ? 'over' : 'side'" [opened]="!deviceService.isMobile()">
+      <mat-toolbar *ngIf="deviceService.isMobile()" color="without-color">
+        <mat-toolbar-row class="brand-sidebar">
+          <img src="/assets/img/logo-dash.png" alt="" width="80%" height="auto">
+        </mat-toolbar-row>
+      </mat-toolbar>
+  
+      <div class="text-center pt-2 pb-2">
+        <div class="p-3">
+          <div class="container-profile-picture">
+            <img src="{{userData.foto}}" *ngIf="userData.foto" alt="foto" class="img-foto-sidebar">
+            <img src="/assets/img/no-image-user.svg" *ngIf="!userData.foto" alt="foto" class="img-foto-sidebar">
+
+            <div class="middle">
+              <a [routerLink]="['/users/profile']" class="text">
+                  <mat-icon class="md-18">edit</mat-icon> Editar
+              </a>
+            </div>
+          </div>
+
+        </div>
+        <span class="mt-2">
+          <span *ngIf="!userData">
+            Administrador
+          </span>
+          <span *ngIf="userData" class="text-capitalize">
+            {{userData.nombre_completo}} <br>
+            <small>
+              {{userData.type == 1?'Administrador':'Mecanico'}}
+            </small>
+          </span>
+        </span>
+      </div>
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/']" [routerLinkActive]="router.url=='/'?'active-menu':''">
+          <mat-icon class="pull-right">home</mat-icon>
+          &nbsp;
+          Inicio
+        </a>
+        <a *ngIf="userData.type === 1" mat-list-item [routerLink]="['/users']" [routerLinkActive]="router.url=='/users'?'active-menu':''">
+          <mat-icon class="pull-right">account_circle</mat-icon>
+          &nbsp;
+          Usuarios
+        </a>
+        <a *ngIf="userData.type === 1" mat-list-item [routerLink]="['/mecanicos']" [routerLinkActive]="router.url=='/mecanicos'?'active-menu':''">
+          <mat-icon class="pull-right">build</mat-icon>
+          &nbsp;
+          Mecanicos
+        </a>
+        <a mat-list-item [routerLink]="['/ordenes']" [routerLinkActive]="router.url=='/ordenes'?'active-menu':''">
+          <mat-icon class="pull-right">directions_car</mat-icon>
+          &nbsp;
+          Vehiculos
+        </a>
+        <a mat-list-item class="d-block d-sm-block d-md-none d-lg-none d-xl-none"  (click)="onLoggedout()">
+          <mat-icon class="pull-right">exit_to_app</mat-icon>
+          &nbsp;
+          Cerrar sessión
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar *ngIf="deviceService.isMobile()" class="fix-nav d-none d-sm-none d-md-block d-lg-block d-xl-block" role="heading" color="primary">
+        <mat-toolbar-row>
+          <button *ngIf="!drawer.opened" mat-icon-button (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+      
+          <!-- title en desktop view -->
+          <div class="nav-spacer text-left">
+            <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+              <h2>{{title.getTitle()}}</h2>
+            </div>
+          </div>
+      
+          <div class="nav-icon-right">
+            <button mat-icon-button [matMenuTriggerFor]="profile">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #profile [overlapTrigger]="false">
+              <button mat-menu-item [routerLink]="['/users/profile']">
+                <mat-icon>person</mat-icon>
+                <span>Mi perfil</span>
+              </button>
+              <button mat-menu-item [routerLink]="['/users/change-password']">
+                <mat-icon>lock</mat-icon>
+                <span>Cambiar password</span>
+              </button>
+              <button mat-menu-item (click)="onLoggedout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Cerrar sessión</span>
+              </button>
+            </mat-menu>
+          </div>
+      
+        </mat-toolbar-row>
+      </mat-toolbar>
+
+      <!-- heading in mobile -->
+      <mat-toolbar class="d-block d-sm-block d-md-none d-lg-none d-xl-none toolbar-mobile" role="heading" color="primary">
+        <mat-toolbar-row>
+          <div *ngIf="router.url == '/'">
+            <button *ngIf="!drawer.opened" mat-icon-button (click)="drawer.toggle()">
+              <mat-icon>menu</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="router.url != '/'">
+            <button mat-icon-button (click)="back()">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+          </div>
+      
+          <div class="nav-spacer text-center" style="left: -15px; position: relative;">
+            <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+              <h2>{{title.getTitle()}}</h2>
+            </div>
+          </div>
+        </mat-toolbar-row>
+      </mat-toolbar>
+
+      <div class="content">
+        <h2 *ngIf="!deviceService.isMobile()">{{title.getTitle()}}</h2>
+        <router-outlet class="row-mobile"></router-outlet>
+      </div>
+
+      
+  
+      
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
